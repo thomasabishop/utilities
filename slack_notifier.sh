@@ -63,7 +63,7 @@ ERROR_BLOCKS=$(
 )
 
 # Initialise sound playback
-mpv --volume=0 --start=0 --length=0.1 /home/thomas/dotfiles/gruvbox-95/sounds/st-computer-on.mp3
+mpv --volume=0 --start=0 --length=0.1 "${HOME}/dotfiles/gruvbox-95/sounds/st-computer-on.mp3"
 sleep 1
 
 # Process notification
@@ -72,11 +72,11 @@ if [ "$2" != "error" ]; then
 		-H 'Content-type: application/json' \
 		--data '{"text":"🟢 '"$3"'"}' \
 		"$WEBHOOK"
-	mpv --volume=100 /home/thomas/dotfiles/sounds/star-trek-computer-success.mp3
+	mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-success.mp3"
 else
 	curl -X POST \
 		-H 'Content-type: application/json' \
 		--json "$ERROR_BLOCKS" \
 		"$WEBHOOK"
-	mpv --volume=100 /home/thomas/dotfiles/sounds/star-trek-computer-error.mp3
+	mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-error.mp3"
 fi

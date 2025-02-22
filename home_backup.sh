@@ -5,13 +5,13 @@
 # Parameters
 # --- $1 = Time schedule ('hourly' | 'daily' | 'weekly' | 'monthly')
 
-USER=thomas
-export XDG_RUNTIME_DIR=/run/user/1000
-source /home/thomas/.env
+#USER=thomas
+#export XDG_RUNTIME_DIR=/run/user/1000
+#source /home/thomas/.env
 
 SCHEDULE=$1
 THIS_FILE=${0}
-SLACK_NOTIFIER="/home/thomas/repos/utilities/slack_notifier.sh"
+SLACK_NOTIFIER="${HOME}/repos/utilities/slack_notifier.sh"
 
 if mountpoint -q /media/samsung-T3; then
 	ERROR=$(sudo /usr/bin/rsnapshot -c /etc/rsnapshot.conf hourly 2>&1)

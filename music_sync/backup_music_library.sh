@@ -1,7 +1,7 @@
 #!/bin/bash
 
 THIS_FILE=${0}
-SLACK_NOTIFIER="/home/thomas/repos/utilities/slack_notifier.sh"
+SLACK_NOTIFIER="${HOME}/repos/utilities/slack_notifier.sh"
 FILE_NAME=$(date +%Y-%m-%d_%H:%M:%S-%Z)
 BAK=$(ls -dt "/media/crucial/music/"*"music_lib_bak"* | head -n 1)
 TEMP="/media/crucial/music/temp"
