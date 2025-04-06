@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Send error and success notifications to Slack channels and play sound
+# Send error and success notifications to Slack channels
 
 # Env vars:
 # ---	Webhook URLs for given channel, eg $SLACK_WEBHOOK_TEST, $SLACK_WEBHOOK_EOLAS
@@ -64,9 +64,9 @@ ERROR_BLOCKS=$(
 
 # Initialise sound playback
 
-mpv --volume=0 --start=0 --length=0.1 "${HOME}/dotfiles/sounds/star-trek-computer-success.mp3" \
-	>/dev/null 2>&1
-sleep 1
+# mpv --volume=0 --start=0 --length=0.1 "${HOME}/dotfiles/sounds/star-trek-computer-success.mp3" \
+# 	>/dev/null 2>&1
+# sleep 1
 
 # Process notification
 if [ "$2" != "error" ]; then
@@ -74,14 +74,14 @@ if [ "$2" != "error" ]; then
 		-H 'Content-type: application/json' \
 		--data '{"text":"🟢 '"$3"'"}' \
 		"$WEBHOOK"
-	mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-success.mp3" \
-		>/dev/null 2>&1
+	# mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-success.mp3" \
+	>/dev/null 2>&1
 
 else
 	curl -X POST \
 		-H 'Content-type: application/json' \
 		--json "$ERROR_BLOCKS" \
 		"$WEBHOOK"
-	mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-error.mp3" \
-		>/dev/null 2>&1
+	# mpv --volume=100 "${HOME}/dotfiles/sounds/star-trek-computer-error.mp3" \
+	>/dev/null 2>&1
 fi
