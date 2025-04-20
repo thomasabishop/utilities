@@ -20,7 +20,9 @@ if mountpoint -q /media/samsung-T3; then
 	if [ $STATUS -ne 0 ]; then
 		$RCHAT_NOTIFIER "backups" "error" "${SCHEDULE} /home backup failed: ${ERROR}"
 	else
-		$RCHAT_NOTIFIER "backups" "success" "${SCHEDULE} /home backup completed"
+		if [ $SCHEDULE != "hourly" ]; then
+			$RCHAT_NOTIFIER "backups" "success" "${SCHEDULE} /home backup completed"
+		fi
 	fi
 else
 	$RCHAT_NOTIFIER "backups" "error" \
