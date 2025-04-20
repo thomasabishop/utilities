@@ -28,7 +28,7 @@ WEBHOOK=${CHANNEL_TO_WEBHOOK[$1]}
 if [ "$2" != "error" ]; then
 	curl -X POST \
 		-H 'Content-type: application/json' \
-		--data "{\"text\":\"INFO \", \"attachments\": [{\"color\": \"#008000\", \"text\": \"$3\"}]}" \
+		--data "{\"text\":\"INFO $3 \"}" \
 		"$WEBHOOK" >/dev/null 2>&1
 else
 	curl -X POST \
