@@ -2,15 +2,21 @@
 
 # Backup Hetzner Storagebox (Alpha) used by VPS for service data.
 
-# USER=thomas
-# export HOME=/home/thomas
-# export XDG_RUNTIME_DIR=/run/user/1000
-# source /home/thomas/.env
-
 NAS_DEVICE_NAME="Hetzner Storagebox (Alpha)"
 RCHAT_NOTIFIER="${HOME}/repos/utilities/rocketchat_notifier.sh"
 SOURCE_MOUNTPOINT="/media/hetzner-storagebox-alpha"
 LOCAL_MOUNTPOINT="/media/my-passport"
+
+function clean_up() {
+	# Dismount NAS
+	echo "INFO Dismounting ${NAS_DEVICE_NAME}."
+	sudo umount /media/hetzner-storagebox-alpha/
+
+	# Turn on VPN
+	echo "INFO Re-connecting Mullvad VPN."
+	mullvad connect
+	exit
+}
 
 # Turn off VPN
 echo "INFO Attempting backup of ${NAS_DEVICE_NAME} NAS device."
@@ -36,7 +42,7 @@ else
 	else
 		$RCHAT_NOTIFIER "backups" "error" \
 			"Could not complete scheduled backup of ${NAS_DEVICE_NAME}. Local backup disk (/media/my-passport) not mounted."
-		exit
+		clean_up
 	fi
 fi
 
@@ -49,14 +55,14 @@ if mountpoint -q ${SOURCE_MOUNTPOINT}; then
 else
 	$RCHAT_NOTIFIER "backups" "error" \
 		"Could not complete scheduled ${NAS_DEVICE_NAME} backup. Source disk (/media/hetzner-storagebox-alpha) not mounted."
-	exit
+	clean_up
 fi
 
 # Create backup (ignoring lock files)
 
 echo "INFO Beginning backup."
 
-sudo rsync -rtv --progress --delete --no-perms \
+sudo rsync -avzP --delete --no-perms \
 	--exclude="*.lock" \
 	--exclude="*.bleve/store/root.bolt" \
 	--exclude="mongo/db/mongod.lock" \
@@ -75,12 +81,4 @@ else
 		"Failed to create backup of ${NAS_DEVICE_NAME}: problem with rsync (exit code $STATUS)."
 fi
 
-# Dismount NAS
-echo "INFO Dismounting ${NAS_DEVICE_NAME}."
-sudo umount /media/hetzner-storagebox-alpha/
-
-# Turn on VPN
-echo "INFO Re-connecting Mullvad VPN."
-mullvad connect
-
-exit
+clean_up
