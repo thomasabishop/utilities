@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /home/thomas/.env
+
 # Copy backup of Forgejo database on VPS to local device
 
 LOCAL_MOUNTPOINT="/media/my-passport"
