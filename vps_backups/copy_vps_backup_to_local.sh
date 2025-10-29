@@ -6,7 +6,7 @@
 # --- $2 = Database location on VPS, e.g. "thomas@systemsobscure.net:/home/thomas/backups/forgejo/*.sql.gz"
 # --- $3 = Backup location path on VPS, e.g. "/vps_backups/mysql/forgejo/"
 
-source "$HOME/.env"
+source /home/thomas/.env
 
 LOCAL_MOUNTPOINT="/media/my-passport"
 RCHAT_NOTIFIER="${HOME}/repos/utilities/rocketchat_notifier.sh"
