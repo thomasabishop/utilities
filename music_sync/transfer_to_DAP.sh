@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SOURCE_DIR="/media/samsung-T7"
-DEST_DIR="/media/dap"
+SOURCE_DIR="/home/thomas/Music/"
+DEST_DIR="/run/media/thomas/6339-3034"
 
 # Ensure directories exist
 if [ ! -d "$SOURCE_DIR" ]; then
