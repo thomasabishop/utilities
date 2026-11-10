@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SOURCE_DIR="/home/thomas/Music/"
-DEST_DIR="/run/media/thomas/6339-3034"
+SOURCE_DIR="/home/thomasabishop/Music/"
+DEST_DIR="/run/media/thomasabishop/6339-3034"
 
 # Ensure directories exist
 if [ ! -d "$SOURCE_DIR" ]; then
